@@ -1,0 +1,21 @@
+[package]
+name = "music_nft_marketplace"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+
+[dependencies]
+near-sdk = "4.0.0-pre.4" # Use the latest version compatible with your project
+serde = "1.0"
+serde_derive = "1.0"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[profile.release]
+# Optimize for size.
+lto = true
+opt-level = "z"
+codegen-units = 1
