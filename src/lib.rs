@@ -128,11 +128,27 @@ impl MusicPlatform {
 
     // Getter functions
     
-     // Function to get details of a specific Music NFT
-     pub fn get_music_nft(&self, token_id: String) -> Option<MusicNFT> {
+    // Function to get all nfts
+    pub fn get_all_music_nft(&self) -> Vec<MusicNFT> {
+        self.nfts.values_as_vector().to_vec()
+    }
+
+    // Function to get details of a specific Music NFT
+    pub fn get_music_nft(&self, token_id: String) -> Option<MusicNFT> {
         self.nfts.get(&token_id)
     }
 
+    // Function to get details of a specific Music NFT
+    pub fn get_user_music_nft(&self, owner_id: String) -> Vec<MusicNFT> {
+        let mut res = Vec::new();
+        for i in 0..self.nfts.values_as_vector().to_vec().len() {
+            if self.nfts.values_as_vector().get(i.try_into().unwrap()).unwrap().owner_id.to_string() == owner_id {
+                res.push(self.nfts.values_as_vector().get(i.try_into().unwrap()).unwrap());
+            } 
+        }
+        res
+    }
+    
     // Function to get a specific fraction of a Music NFT
     pub fn get_fraction(&self, music_nft_id: String) -> Vec<Fraction> {
         self.get_music_nft(music_nft_id).unwrap().fractions
